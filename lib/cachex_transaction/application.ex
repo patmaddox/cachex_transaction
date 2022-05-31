@@ -8,8 +8,7 @@ defmodule CachexTransaction.Application do
   @impl true
   def start(_type, _args) do
     children = [
-      CachexTransaction.Repo,
-      {Cachex, name: :cachex_transaction}
+      CachexTransaction.Repo
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

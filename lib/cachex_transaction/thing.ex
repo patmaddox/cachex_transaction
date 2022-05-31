@@ -8,13 +8,15 @@ defmodule CachexTransaction.Thing do
   end
 
   def create_thing(attrs) do
-    {:ok, {:ok, %__MODULE__{} = thing}} = Repo.transaction(fn ->
-      Cachex.transaction(:cachex_transaction, [attrs.name], fn _worker ->
-        attrs
-        |> changeset()
-        |> Repo.insert!()
+    {:ok, {:ok, %__MODULE__{} = thing}} =
+      Repo.transaction(fn ->
+        Task.async(fn ->
+          attrs
+          |> changeset()
+          |> Repo.insert!()
+        end)
+        |> Task.await()
       end)
-    end)
 
     thing
   end

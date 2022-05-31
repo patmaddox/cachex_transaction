@@ -22,7 +22,6 @@ defmodule CachexTransaction.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:cachex, "~> 3.4"},
       {:ecto, "~> 3.8"},
       {:ecto_sql, "~> 3.8"},
       {:postgrex, ">= 0.0.0"}
