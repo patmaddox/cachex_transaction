@@ -11,6 +11,6 @@ defmodule CachexTransactionTest do
   end
 
   test "create a thing" do
-    Thing.create_thing(%{name: "new thing"})
+    assert Thing.create_thing(%{name: "new thing"}) == Thing.create_thing(%{name: "new thing"})
   end
 end

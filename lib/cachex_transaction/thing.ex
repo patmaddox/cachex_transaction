@@ -8,9 +8,16 @@ defmodule CachexTransaction.Thing do
   end
 
   def create_thing(attrs) do
-    attrs
-    |> changeset()
-    |> Repo.insert!()
+    case Cachex.get(:cachex_transaction, attrs.name) do
+      {:ok, nil} ->
+        thing =
+          attrs
+          |> changeset()
+          |> Repo.insert!()
+        Cachex.put(:cachex_transaction, attrs.name, thing)
+        thing
+      {:ok, thing} -> thing
+    end
   end
 
   defp changeset(struct \\ %__MODULE__{}, attrs) do
